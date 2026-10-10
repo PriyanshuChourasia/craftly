@@ -1,0 +1,1 @@
+import{o as e}from"./useSelector-B_P3tCcN.js";import{c as t}from"./index-C7HGdz27.js";var n=e(),r=()=>(0,n.jsx)(t,{code:`404`,title:`Object not found`,description:`The object you're looking for has left the archive.`});export{r as notFoundComponent};

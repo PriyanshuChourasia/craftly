@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1200" viewBox="0 0 1200 1000" preserveAspectRatio="xMidYMid slice">
+  <rect width="1200" height="1500" fill="#d8cec4"/>
+  <circle cx="338" cy="351" r="104" fill="#20242a" opacity="0.9"/>
+  <rect x="552.3333333333334" y="535" width="323" height="436" fill="#c8b39a" transform="rotate(-0.583333333333333 700 700)"/>
+  <path d="M0 1242 Q 600 955 1200 1258 L1200 1500 L0 1500 Z" fill="#ece4dc" opacity="0.85"/>
+  <circle cx="819.5" cy="324" r="91.75" fill="none" stroke="#c8b39a" stroke-width="6" opacity="0.7"/>
+  <rect x="60" y="60" width="1080" height="1380" fill="none" stroke="#c8b39a" stroke-width="2" opacity="0.35"/>
+  <text x="80" y="1430" font-family="monospace" font-size="34" letter-spacing="8" fill="#c8b39a" opacity="0.55">OBJECT / 06</text>
+</svg>

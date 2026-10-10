@@ -1,0 +1,1 @@
+import{o as e}from"./useSelector-B_P3tCcN.js";import{t}from"./AdminLayout-BL7HyfM6.js";import{t as n}from"./ProductForm-tVCJsBle.js";var r=e();function i(){return(0,r.jsx)(t,{title:`New product`,children:(0,r.jsx)(n,{})})}export{i as component};

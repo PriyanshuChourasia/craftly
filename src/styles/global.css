@@ -1,0 +1,226 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   OBJECTS — design tokens
+   ============================================================ */
+@theme {
+  --color-background: #f3ecea;
+  --color-background-alt: #ece5e2;
+  --color-background-deep: #e6deda;
+  --color-background-sunk: #ddd5d1;
+  --color-foreground: #111111;
+  --color-foreground-secondary: #5f5a57;
+  --color-muted: #8a8582;
+  --color-border: #aaa4a0;
+  --color-border-soft: #c9c2bd;
+  --color-accent: #c65b36;
+  --color-dark: #080808;
+  --color-paper: #fffdfb;
+
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-meta: 'Inter', system-ui, sans-serif;
+
+  --shadow-frame: 0 20px 60px rgb(8 8 8 / 0.08);
+  --shadow-frame-lg: 0 30px 80px rgb(8 8 8 / 0.12);
+
+  --z-background: 0;
+  --z-decorative: 10;
+  --z-products: 20;
+  --z-foreground: 30;
+  --z-navigation: 50;
+  --z-cursor: 90;
+  --z-modal: 100;
+}
+
+:root {
+  --background: #f3ecea;
+  --foreground: #111111;
+  --muted: #8a8582;
+  --muted-foreground: #5f5a57;
+  --border: #aaa4a0;
+  --accent: #c65b36;
+  --card: #f3ecea;
+  --card-foreground: #111111;
+}
+
+html {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: none;
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ============================================================
+   Typography levels
+   ============================================================ */
+@utility font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* LEVEL 1 — huge */
+@utility text-display-xl {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  font-size: clamp(3.5rem, 11vw, 12rem);
+}
+
+/* LEVEL 2 — large */
+@utility text-display-lg {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  font-size: clamp(2.5rem, 6.5vw, 7rem);
+}
+
+/* LEVEL 2b — medium */
+@utility text-display-md {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+
+/* LEVEL 3 — small metadata */
+@utility text-meta {
+  font-family: var(--font-meta);
+  font-weight: 500;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+@utility text-meta-lg {
+  font-family: var(--font-meta);
+  font-weight: 500;
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   Layout & surface utilities
+   ============================================================ */
+@utility border-hairline {
+  border: 1px solid var(--border);
+}
+
+@utility border-hairline-soft {
+  border: 1px solid var(--border-soft);
+}
+
+@utility frame {
+  border: 1px solid var(--border);
+  background: var(--card);
+  box-shadow: var(--shadow-frame);
+}
+
+@utility perspective-scene {
+  perspective: 1200px;
+}
+
+@utility preserve-3d {
+  transform-style: preserve-3d;
+}
+
+/* Giant faded background typography */
+@utility bg-type {
+  font-family: var(--font-display);
+  font-weight: 500;
+  color: rgb(17 17 17 / 0.04);
+  line-height: 0.8;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+@utility link-underline {
+  position: relative;
+}
+
+@utility link-underline-hover {
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+/* ============================================================
+   Focus & a11y
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   Custom cursor — hide native cursor only when enabled
+   ============================================================ */
+html.has-custom-cursor,
+html.has-custom-cursor * {
+  cursor: none !important;
+}
+
+/* ============================================================
+   Reduced motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.15s !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Lenis */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+/* Thin editorial scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-soft);
+  border: 3px solid var(--background);
+}

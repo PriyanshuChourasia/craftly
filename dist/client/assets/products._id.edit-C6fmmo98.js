@@ -1,0 +1,1 @@
+import{o as e}from"./useSelector-B_P3tCcN.js";import{t}from"./index-C7HGdz27.js";import{t as n}from"./AdminLayout-BL7HyfM6.js";import{t as r}from"./ProductForm-tVCJsBle.js";var i=e();function a(){let{product:e}=t.useLoaderData();return(0,i.jsx)(n,{title:`Edit — ${e.name}`,children:(0,i.jsx)(r,{product:e})})}export{a as component};
