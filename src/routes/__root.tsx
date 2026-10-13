@@ -57,6 +57,9 @@ function RootComponent() {
   const isAdmin = location.pathname.startsWith('/admin')
   const reduced = useReducedMotion()
 
+  // The site <Header /> now renders on every route, including /admin and the
+  // 404 page. Admin pages add their own top bar (AdminLayout) below it.
+
   useEffect(() => {
     initSmoothScroll()
   }, [])
@@ -66,7 +69,7 @@ function RootComponent() {
       <ParallaxProvider>
         <LoadingScreen />
         <CustomCursor />
-        {!isAdmin && <Header />}
+        <Header />
         <AnimatePresence mode="wait" initial={false}>
           <motion.main
             key={location.pathname}

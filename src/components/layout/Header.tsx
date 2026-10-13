@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useLocation } from '@tanstack/react-router'
-import { AnimatePresence, motion } from 'motion/react'
+import { motion } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { getLenis } from '@/lib/animations/gsap'
 
@@ -21,8 +21,10 @@ function scrollToAnchor(hash: string) {
 }
 
 /**
- * Compact fixed navigation. Handles `/#anchor` links by smooth-scrolling
- * when already on the home route, otherwise navigating first.
+ * Fixed navigation, visible on every route. On the home page it starts
+ * transparent with light text over the hero, then turns solid on scroll.
+ * Handles `/#anchor` links by smooth-scrolling when already on the home
+ * route, otherwise navigating first.
  */
 export function Header({ compact = false }: { compact?: boolean }) {
   const [scrolled, setScrolled] = useState(false)
@@ -36,7 +38,7 @@ export function Header({ compact = false }: { compact?: boolean }) {
     return () => window.removeEventListener('scroll', onScroll)
   }, [compact])
 
-  const showBar = compact || scrolled
+  const overHero = !compact && !scrolled && location.pathname === '/'
 
   const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('/#')) {
@@ -55,42 +57,38 @@ export function Header({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <AnimatePresence>
-      {showBar && (
-        <motion.header
-          initial={{ y: -60, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -60, opacity: 0 }}
-          transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-x-0 top-0 z-50 border-b border-border/50 bg-background/85 backdrop-blur-sm"
-        >
-          <nav
-            aria-label="Main"
-            className="mx-auto grid max-w-[1600px] grid-cols-3 items-center px-5 py-4 md:px-10"
-          >
-            <div className="flex items-center gap-6">
-              {NAV.filter((n) => !n.center && !n.right).map((n) => (
-                <NavLink key={n.label} {...n} onClick={handleNav} />
-              ))}
-            </div>
-            <div className="flex justify-center">
-              <Link
-                to="/"
-                className="font-display text-lg leading-none tracking-tight"
-                aria-label="SB Creation"
-              >
-                SB <span title="SB creation">Creation</span>
-              </Link>
-            </div>
-            <div className="flex items-center justify-end gap-6">
-              {NAV.filter((n) => n.right).map((n) => (
-                <NavLink key={n.label} {...n} onClick={handleNav} />
-              ))}
-            </div>
-          </nav>
-        </motion.header>
+    <motion.header
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+      className={cn(
+        'fixed inset-x-0 top-0 z-50 border-b transition-colors duration-500',
+        overHero
+          ? 'border-white/15 bg-transparent text-white'
+          : 'border-border/50 bg-background/85 text-foreground backdrop-blur-sm',
       )}
-    </AnimatePresence>
+    >
+      <nav
+        aria-label="Main"
+        className="mx-auto grid max-w-[1600px] grid-cols-3 items-center px-5 py-4 md:px-10"
+      >
+        <div className="flex items-center gap-6">
+          {NAV.filter((n) => !n.center && !n.right).map((n) => (
+            <NavLink key={n.label} {...n} onClick={handleNav} light={overHero} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <Link to="/" className="font-display text-lg leading-none tracking-tight" aria-label="Craftly">
+            Craftly
+          </Link>
+        </div>
+        <div className="flex items-center justify-end gap-6">
+          {NAV.filter((n) => n.right).map((n) => (
+            <NavLink key={n.label} {...n} onClick={handleNav} light={overHero} />
+          ))}
+        </div>
+      </nav>
+    </motion.header>
   )
 }
 
@@ -99,18 +97,21 @@ function NavLink({
   href,
   onClick,
   className,
+  light = false,
 }: {
   label: string
   href: string
   onClick?: (e: React.MouseEvent<HTMLAnchorElement>, href: string) => void
   className?: string
+  light?: boolean
 }) {
   return (
     <Link
       to={href}
       onClick={(e) => onClick?.(e, href)}
       className={cn(
-        'text-meta link-underline-hover text-foreground-secondary transition-colors hover:text-foreground',
+        'text-meta link-underline-hover transition-colors',
+        light ? 'text-white/80 hover:text-white' : 'text-foreground-secondary hover:text-foreground',
         className,
       )}
     >

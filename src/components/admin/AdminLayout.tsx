@@ -10,12 +10,12 @@ const NAV = [
 export function AdminLayout({ title, actions, children }: { title: string; actions?: React.ReactNode; children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background">
+      {/* Top bar sits below the fixed site <Header /> (approx. 64px tall). The
+          top offset on the inner container keeps the admin nav and actions clear of
+          the site header; the border sits under the top bar only. */}
       <header className="border-b border-border/60">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-4 pt-16">
           <div className="flex items-center gap-8">
-            <Link to="/" className="font-display text-lg leading-none">
-              OBJECTS<sup className="text-meta ml-1 align-super">admin</sup>
-            </Link>
             <nav aria-label="Admin" className="hidden items-center gap-5 md:flex">
               {NAV.map((item) => (
                 <AdminNavLink key={item.to} {...item} />
@@ -24,13 +24,14 @@ export function AdminLayout({ title, actions, children }: { title: string; actio
           </div>
           <div className="flex items-center gap-3">{actions}</div>
         </div>
-        <nav aria-label="Admin mobile" className="flex gap-5 border-t border-border/40 px-5 py-2 md:hidden">
+        {/* Mobile admin nav: pinned below the site header with matching top offset. */}
+        <nav aria-label="Admin mobile" className="flex gap-5 border-t border-border/40 px-5 py-2 pt-16 md:hidden">
           {NAV.map((item) => (
             <AdminNavLink key={item.to} {...item} />
           ))}
         </nav>
       </header>
-      <main className="mx-auto max-w-6xl px-5 py-8">
+      <main className="mx-auto max-w-6xl px-5 py-8 pt-16">
         <h1 className="font-display text-2xl tracking-wide">{title}</h1>
         <div className="mt-6">{children}</div>
       </main>

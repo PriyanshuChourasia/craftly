@@ -29,7 +29,8 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const { featured, all } = Route.useLoaderData()
-  const hero = [...featured, ...all.filter((p) => !featured.includes(p))].slice(0, 6)
+  // Up to 10 products feed the hero slider; the mosaic background stays at 6 images.
+  const hero = [...featured, ...all.filter((p) => !featured.includes(p))].slice(0, 10)
   const main = featured[0] ?? all[0]
   const second = featured[1] ?? all[1]
   const preview = all.slice(0, 8)
